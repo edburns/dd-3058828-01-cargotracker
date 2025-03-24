@@ -340,7 +340,7 @@ public class CargoLifecycleScenarioTest {
    * Utility stubs below.
    */
   private Itinerary selectPreferedItinerary(List<Itinerary> itineraries) {
-    return itineraries.get(0);
+    return itineraries.getFirst();
   }
 
   protected void setUp() throws Exception {

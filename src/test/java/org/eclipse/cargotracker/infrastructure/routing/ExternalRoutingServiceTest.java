@@ -65,8 +65,8 @@ public class ExternalRoutingServiceTest {
             legs -> {
               assertNotNull(legs);
               assertFalse(legs.isEmpty());
-              assertEquals(cargo.getOrigin(), legs.get(0).getLoadLocation());
-              Location lastLegStop = legs.get(legs.size() - 1).getUnloadLocation();
+              assertEquals(cargo.getOrigin(), legs.getFirst().getLoadLocation());
+              Location lastLegStop = legs.getLast().getUnloadLocation();
               assertEquals(cargo.getRouteSpecification().getDestination(), lastLegStop);
               for (int i = 0; i < legs.size() - 1; i++) {
                 assertEquals(legs.get(i).getUnloadLocation(), legs.get(i + 1).getLoadLocation());

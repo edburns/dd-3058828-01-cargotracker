@@ -56,7 +56,7 @@ public class Itinerary implements Serializable {
       case RECEIVE:
         {
           // Check that the first leg's origin is the event's location
-          Leg leg = legs.get(0);
+          Leg leg = legs.getFirst();
           return leg.getLoadLocation().equals(event.getLocation());
         }
 
@@ -103,7 +103,7 @@ public class Itinerary implements Serializable {
     if (legs.isEmpty()) {
       return Location.UNKNOWN;
     } else {
-      return legs.get(0).getLoadLocation();
+      return legs.getFirst().getLoadLocation();
     }
   }
 
@@ -131,7 +131,7 @@ public class Itinerary implements Serializable {
     if (legs.isEmpty()) {
       return null;
     } else {
-      return legs.get(legs.size() - 1);
+      return legs.getLast();
     }
   }
 
