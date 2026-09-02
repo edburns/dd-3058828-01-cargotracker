@@ -1,23 +1,24 @@
 package org.eclipse.cargotracker.application;
 
-import org.eclipse.cargotracker.application.util.JsonMoxyConfigurationContextResolver;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.eclipse.pathfinder.api.GraphTraversalService;
-import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
-import org.glassfish.jersey.server.ResourceConfig;
 
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * JAX-RS configuration.
  */
 @ApplicationPath("rest")
-public class BookingServiceTestRestConfiguration extends ResourceConfig {
+public class BookingServiceTestRestConfiguration extends Application {
 
-    public BookingServiceTestRestConfiguration() {
-        // Resources
-        packages(new String[]{GraphTraversalService.class.getPackage().getName()});
-        // Providers - JSON.
-        register(new MoxyJsonFeature());
-        register(new JsonMoxyConfigurationContextResolver()); // TODO See if this can be removed.
+    @Override
+    public Set<Class<?>> getClasses() {
+        Set<Class<?>> classes = new HashSet<>();
+        classes.add(GraphTraversalService.class);
+        classes.add(JacksonJsonProvider.class);
+        return classes;
     }
 }

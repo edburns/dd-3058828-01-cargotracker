@@ -1,6 +1,6 @@
 package org.eclipse.cargotracker.infrastructure.routing;
 
-import org.eclipse.cargotracker.application.util.JsonMoxyConfigurationContextResolver;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.eclipse.cargotracker.domain.model.cargo.Itinerary;
 import org.eclipse.cargotracker.domain.model.cargo.Leg;
 import org.eclipse.cargotracker.domain.model.cargo.RouteSpecification;
@@ -11,7 +11,6 @@ import org.eclipse.cargotracker.domain.model.voyage.VoyageRepository;
 import org.eclipse.cargotracker.domain.service.RoutingService;
 import org.eclipse.pathfinder.api.TransitEdge;
 import org.eclipse.pathfinder.api.TransitPath;
-import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -50,9 +49,8 @@ public class ExternalRoutingService implements RoutingService {
 
     @PostConstruct
     public void init() {
-        graphTraversalResource = jaxrsClient.target(graphTraversalUrl);
-        graphTraversalResource.register(new MoxyJsonFeature()).register(
-                new JsonMoxyConfigurationContextResolver());
+        graphTraversalResource = jaxrsClient.target(graphTraversalUrl)
+                .register(JacksonJsonProvider.class);
     }
 
     @Override

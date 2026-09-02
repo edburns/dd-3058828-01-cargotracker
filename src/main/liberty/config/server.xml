@@ -13,6 +13,12 @@
 
 	<quickStartSecurity userName="cargo" userPassword="tracker" />
 
+	<authorization-roles id="com.ibm.ws.batch">
+		<security-role name="batchAdmin">
+			<special-subject type="EVERYONE" />
+		</security-role>
+	</authorization-roles>
+
 	<connectionManager id="CargoConnectionManager"
 		minPoolSize="1"
 		maxPoolSize="32" />

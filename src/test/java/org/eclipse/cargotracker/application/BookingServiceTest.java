@@ -2,7 +2,6 @@ package org.eclipse.cargotracker.application;
 
 import org.eclipse.cargotracker.application.internal.DefaultBookingService;
 import org.eclipse.cargotracker.application.util.DateUtil;
-import org.eclipse.cargotracker.application.util.JsonMoxyConfigurationContextResolver;
 import org.eclipse.cargotracker.domain.model.location.Location;
 import org.eclipse.cargotracker.domain.model.location.LocationRepository;
 import org.eclipse.cargotracker.domain.model.location.SampleLocations;
@@ -111,7 +110,6 @@ public class BookingServiceTest {
                 .addClass(JpaHandlingEventRepository.class)
                 .addClass(JpaLocationRepository.class)
                 .addClass(ExternalRoutingService.class)
-                .addClass(JsonMoxyConfigurationContextResolver.class)
                 // Interface components
                 .addClass(TransitPath.class)
                 .addClass(TransitEdge.class)
@@ -131,7 +129,8 @@ public class BookingServiceTest {
 
         war.addAsLibraries(
                 Maven.resolver().loadPomFromFile("pom.xml")
-                        .resolve("org.apache.commons:commons-lang3")
+                        .resolve("org.apache.commons:commons-lang3",
+                                "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider")
                         .withTransitivity().asFile());
 
         return war;
