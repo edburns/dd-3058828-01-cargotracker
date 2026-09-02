@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="Cargo Tracker">
+
+	<featureManager>
+		<feature>javaee-7.0</feature>
+		<feature>localConnector-1.0</feature>
+	</featureManager>
+
+	<httpEndpoint id="defaultHttpEndpoint"
+		host="*"
+		httpPort="${default.http.port}"
+		httpsPort="${default.https.port}" />
+
+	<quickStartSecurity userName="cargo" userPassword="tracker" />
+
+	<connectionManager id="CargoConnectionManager"
+		minPoolSize="1"
+		maxPoolSize="32" />
+
+	<messagingEngine id="defaultME">
+		<queue id="CargoHandledQueue" forceReliability="ReliablePersistent" />
+		<queue id="MisdirectedCargoQueue" forceReliability="ReliablePersistent" />
+		<queue id="DeliveredCargoQueue" forceReliability="ReliablePersistent" />
+		<queue id="RejectedRegistrationAttemptsQueue" forceReliability="ReliablePersistent" />
+		<queue id="HandlingEventRegistrationAttemptQueue" forceReliability="ReliablePersistent" />
+	</messagingEngine>
+
+	<jmsQueueConnectionFactory jndiName="java:app/jms/QueueConnectionFactory"
+		connectionManagerRef="CargoConnectionManager" />
+
+	<jmsQueue id="CargoHandledQueue" jndiName="jms/CargoHandledQueue">
+		<properties.wasJms queueName="CargoHandledQueue" />
+	</jmsQueue>
+	<jmsQueue id="MisdirectedCargoQueue" jndiName="jms/MisdirectedCargoQueue">
+		<properties.wasJms queueName="MisdirectedCargoQueue" />
+	</jmsQueue>
+	<jmsQueue id="DeliveredCargoQueue" jndiName="jms/DeliveredCargoQueue">
+		<properties.wasJms queueName="DeliveredCargoQueue" />
+	</jmsQueue>
+	<jmsQueue id="RejectedRegistrationAttemptsQueue" jndiName="jms/RejectedRegistrationAttemptsQueue">
+		<properties.wasJms queueName="RejectedRegistrationAttemptsQueue" />
+	</jmsQueue>
+	<jmsQueue id="HandlingEventRegistrationAttemptQueue" jndiName="jms/HandlingEventRegistrationAttemptQueue">
+		<properties.wasJms queueName="HandlingEventRegistrationAttemptQueue" />
+	</jmsQueue>
+
+	<jmsActivationSpec id="cargo-tracker/CargoHandledConsumer">
+		<properties.wasJms destinationRef="CargoHandledQueue"
+			destinationType="javax.jms.Queue" />
+	</jmsActivationSpec>
+	<jmsActivationSpec id="cargo-tracker/MisdirectedCargoConsumer">
+		<properties.wasJms destinationRef="MisdirectedCargoQueue"
+			destinationType="javax.jms.Queue" />
+	</jmsActivationSpec>
+	<jmsActivationSpec id="cargo-tracker/DeliveredCargoConsumer">
+		<properties.wasJms destinationRef="DeliveredCargoQueue"
+			destinationType="javax.jms.Queue" />
+	</jmsActivationSpec>
+	<jmsActivationSpec id="cargo-tracker/RejectedRegistrationAttemptsConsumer">
+		<properties.wasJms destinationRef="RejectedRegistrationAttemptsQueue"
+			destinationType="javax.jms.Queue" />
+	</jmsActivationSpec>
+	<jmsActivationSpec id="cargo-tracker/HandlingEventRegistrationAttemptConsumer">
+		<properties.wasJms destinationRef="HandlingEventRegistrationAttemptQueue"
+			destinationType="javax.jms.Queue" />
+	</jmsActivationSpec>
+
+	<library id="DerbyLib">
+		<fileset dir="${shared.resource.dir}" includes="derby*.jar" />
+	</library>
+	<jdbcDriver id="DerbyDriver" libraryRef="DerbyLib" />
+
+	<dataSource id="DefaultDataSource" jdbcDriverRef="DerbyDriver">
+		<properties.derby.embedded
+			databaseName="${server.output.dir}/data/default"
+			createDatabase="create" />
+	</dataSource>
+
+	<databaseStore id="EJBPersistentTimerStore"
+		dataSourceRef="DefaultDataSource"
+		tablePrefix="WLP_" />
+	<persistentExecutor id="EJBPersistentTimerExecutor"
+		taskStoreRef="EJBPersistentTimerStore"
+		enableTaskExecution="true"
+		initialPollDelay="-1" />
+	<ejbContainer>
+		<timerService persistentExecutorRef="EJBPersistentTimerExecutor" />
+	</ejbContainer>
+
+	<webApplication id="cargo-tracker"
+		location="cargo-tracker.war"
+		contextRoot="/cargo-tracker">
+		<classloader commonLibraryRef="DerbyLib" />
+	</webApplication>
+
+	<applicationManager autoExpand="true" />
+	<applicationMonitor updateTrigger="mbean" />
+</server>

@@ -22,6 +22,12 @@ The [project site](https://projects.eclipse.org/projects/ee4j.cargotracker/) has
 The simplest steps are the following (no IDE required):
 
 * Get the project source code.
+* To run on JDK 17 with Open Liberty, set `JAVA_HOME` to a JDK 17 installation
+  and run: `./mvnw clean package -Popenliberty liberty:run`
+* Go to http://localhost:8080/cargo-tracker/
+
+The historical Payara path remains available:
+
 * Ensure you are running Java SE 8. The project by default uses Payara 4.1, which supports Java SE 8.
 * Make sure JAVA_HOME is set for Maven and Payara to function predictably.
 * As long as you have Maven set up properly, navigate to the project source root and 

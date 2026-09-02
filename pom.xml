@@ -48,6 +48,12 @@
 		<webapp.graphTraversalUrl>
 			http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
 		</webapp.graphTraversalUrl>
+
+		<!-- Open Liberty properties -->
+		<liberty.maven.version>3.12.1</liberty.maven.version>
+		<liberty.runtime.version>26.0.0.8</liberty.runtime.version>
+		<derby.version>10.14.2.0</derby.version>
+		<jersey.scope>provided</jersey.scope>
 	</properties>
 
 	<dependencyManagement>
@@ -80,13 +86,13 @@
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet-core</artifactId>
 			<version>2.28</version>
-			<scope>provided</scope>
+			<scope>${jersey.scope}</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-moxy</artifactId>
 			<version>2.28</version>
-			<scope>provided</scope>
+			<scope>${jersey.scope}</scope>
 		</dependency>
 
 		<!-- The third-party dependencies this application has -->
@@ -136,7 +142,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.3</version>
+				<version>3.5.1</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
@@ -181,6 +187,73 @@
 								</zipUrlInstaller>
 							</container>
 						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>openliberty</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<webapp.databaseTempDir>${project.build.directory}/cargo-tracker-data</webapp.databaseTempDir>
+				<webapp.graphTraversalUrl>
+					http://localhost:8080/cargo-tracker/rest/graph-traversal/shortest-path
+				</webapp.graphTraversalUrl>
+				<jersey.scope>compile</jersey.scope>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.derby</groupId>
+					<artifactId>derby</artifactId>
+					<version>${derby.version}</version>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.derby</groupId>
+					<artifactId>derbytools</artifactId>
+					<version>${derby.version}</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>io.openliberty.tools</groupId>
+						<artifactId>liberty-maven-plugin</artifactId>
+						<version>${liberty.maven.version}</version>
+						<configuration>
+							<runtimeArtifact>
+								<groupId>io.openliberty</groupId>
+								<artifactId>openliberty-runtime</artifactId>
+								<version>${liberty.runtime.version}</version>
+								<type>zip</type>
+							</runtimeArtifact>
+							<copyDependencies>
+								<dependencyGroup>
+									<location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
+									<dependency>
+										<groupId>org.apache.derby</groupId>
+										<artifactId>derby</artifactId>
+									</dependency>
+									<dependency>
+										<groupId>org.apache.derby</groupId>
+										<artifactId>derbytools</artifactId>
+									</dependency>
+								</dependencyGroup>
+							</copyDependencies>
+						</configuration>
+						<executions>
+							<execution>
+								<id>install-liberty</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>create</goal>
+									<goal>install-feature</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
