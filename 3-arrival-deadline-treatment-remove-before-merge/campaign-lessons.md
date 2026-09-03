@@ -23,6 +23,7 @@ The issue specification and repository instructions remain authoritative.
   - **Evidence:** `DefaultBookingServiceFacade.changeDeadline(...)`, the focused facade test, and the finding-free Copilot review of `f8456db`.
   - **Source:** CCA observation
   - **Confidence:** high
+
 - **Applies to:** Hand-written application-service test doubles used to verify narrow facade delegation
   - **Lesson:** Make every operation outside the expected delegation fail fast so the test detects accidental extra service calls rather than silently accepting them.
   - **Evidence:** Copilot review finding on permissive no-op methods, corrective commit `f8456db`, and the finding-free follow-up review.
@@ -32,4 +33,17 @@ The issue specification and repository instructions remain authoritative.
   - **Lesson:** Use `./mvnw clean package -Popenliberty` as the executable compile gate, and rely on the direct HTTP/browser acceptance flow because the historical Arquillian integration suite remains container-bound and the project still defaults `skipTests=true`.
   - **Evidence:** POM `skipTests=true`, successful Open Liberty package builds, and the issue's acceptance flow after the application-layer test is in place.
   - **Source:** CCA observation
+  - **Confidence:** high
+
+## Validated lessons from issue #7 (PR #17)
+
+- **Applies to:** JSF deadline editor backing models
+  - **Lesson:** Fetch a facade DTO's derived date string once, wrap failures from the DTO accessor, and parse with a fresh, non-lenient formatter so malformed or unavailable values surface consistently as application failures.
+  - **Evidence:** `ChangeArrivalDeadlineDate.load()`, `loadWrapsMalformedDtoDate()`, corrective commit `26862c7`, and the finding-free follow-up Copilot review.
+  - **Source:** both
+  - **Confidence:** high
+- **Applies to:** Container-free web bean tests
+  - **Lesson:** Inject a hand-written facade fake reflectively when testing a CDI bean outside a container, make unexpected facade operations fail fast, and parse fixture dates non-leniently so invalid test data cannot be silently normalized.
+  - **Evidence:** `ChangeArrivalDeadlineDateTest`, corrective commit `26862c7`, and the finding-free follow-up Copilot review.
+  - **Source:** both
   - **Confidence:** high
