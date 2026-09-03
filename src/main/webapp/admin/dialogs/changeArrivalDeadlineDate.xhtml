@@ -30,7 +30,7 @@
                                  action="#{changeArrivalDeadlineDateDialog.cancel()}"/>
                 <p:commandButton value="Update"
                                  action="#{changeArrivalDeadlineDate.changeArrivalDeadline()}"
-                                 oncomplete="window.location.replace(window.location.href);"/>
+                                 oncomplete="if (!args.validationFailed) { window.location.replace(window.location.href); }"/>
             </h:panelGrid>
             <p:message for="arrivalDeadlineDate"/>
         </h:form>
