@@ -15,3 +15,16 @@ The issue specification and repository instructions remain authoritative.
   - **Evidence:** Copilot review finding on `Date` mutability, corrective commit `751172c`, and the finding-free follow-up review.
   - **Source:** stage-40 observation
   - **Confidence:** high
+
+## Candidate lessons for issue #6
+
+- **Applies to:** Facade boundary methods that adapt a web-facing command to the application service
+  - **Lesson:** Keep the facade thin: convert only the tracking ID and pass the original `Date` to `BookingService.changeDeadline(...)`; do not load cargo, store through a repository, or parse a formatted date in the facade.
+  - **Evidence:** `DefaultBookingServiceFacade.changeDeadline(...)` and `DefaultBookingServiceFacadeTest` verifying one conversion and one delegation.
+  - **Source:** issue 4.2
+  - **Confidence:** high
+- **Applies to:** Historical JDK 17 / Open Liberty validation for compiled Java EE tests
+  - **Lesson:** Use `./mvnw clean package -Popenliberty` as the executable compile gate, and rely on the direct HTTP/browser acceptance flow because the historical Arquillian integration suite remains container-bound and the project still defaults `skipTests=true`.
+  - **Evidence:** POM `skipTests=true`, successful Open Liberty package builds, and the issue's acceptance flow after the application-layer test is in place.
+  - **Source:** issue 4.2
+  - **Confidence:** high
