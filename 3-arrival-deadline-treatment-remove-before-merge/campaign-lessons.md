@@ -16,6 +16,14 @@ The issue specification and repository instructions remain authoritative.
   - **Source:** stage-40 observation
   - **Confidence:** high
 
+  ## Candidate lessons for issue #9
+
+  - **Applies to:** Not Routed Cargo dashboard deadline editing
+    - **Lesson:** Mirror the adjacent Destination command link, including a `dialogReturn` listener and table-only update, when exposing a completed dynamic dialog.
+    - **Evidence:** `src/main/webapp/admin/tables/listNotRouted.xhtml` deadline column.
+    - **Source:** implementation
+    - **Confidence:** high
+
 ## Validated lessons from issue #6 (PR #16)
 
 - **Applies to:** Facade boundary methods that adapt a web-facing command to the application service
