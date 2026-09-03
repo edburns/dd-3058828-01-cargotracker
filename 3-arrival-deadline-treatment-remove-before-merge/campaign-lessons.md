@@ -29,10 +29,13 @@ The issue specification and repository instructions remain authoritative.
   - **Evidence:** Copilot review finding on permissive no-op methods, corrective commit `f8456db`, and the finding-free follow-up review.
   - **Source:** stage-40 observation
   - **Confidence:** high
-- **Applies to:** Historical JDK 17 / Open Liberty validation for compiled Java EE tests
-  - **Lesson:** Use `./mvnw clean package -Popenliberty` as the executable compile gate, and rely on the direct HTTP/browser acceptance flow because the historical Arquillian integration suite remains container-bound and the project still defaults `skipTests=true`.
-  - **Evidence:** POM `skipTests=true`, successful Open Liberty package builds, and the issue's acceptance flow after the application-layer test is in place.
-  - **Source:** CCA observation
+
+## Validated lessons from issue #9 (PR #19)
+
+- **Applies to:** PrimeFaces table actions that expose an existing dynamic dialog
+  - **Lesson:** Mirror an adjacent command-link integration: pass the row identifier to the dialog, handle `dialogReturn`, and update only the containing table so unrelated page state is preserved.
+  - **Evidence:** `src/main/webapp/admin/tables/listNotRouted.xhtml` and the finding-free Copilot review of `e873bb9`.
+  - **Source:** both
   - **Confidence:** high
 
 ## Validated lessons from issue #7 (PR #17)
