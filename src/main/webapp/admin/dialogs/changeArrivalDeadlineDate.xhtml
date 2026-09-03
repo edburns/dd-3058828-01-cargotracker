@@ -23,11 +23,13 @@
                                value="#{changeArrivalDeadlineDate.cargo.finalDestinationName}"/>
 
                 <p:outputLabel value="Deadline:" for="deadline"/>
-                <p:datePicker id="deadline"
-                              value="#{changeArrivalDeadlineDate.arrivalDeadlineDate}"
-                              required="true"
-                              pattern="MM/dd/yyyy"/>
-                <p:message for="deadline"/>
+                <h:panelGroup>
+                    <p:datePicker id="deadline"
+                                  value="#{changeArrivalDeadlineDate.arrivalDeadlineDate}"
+                                  required="true"
+                                  pattern="MM/dd/yyyy"/>
+                    <p:message for="deadline"/>
+                </h:panelGroup>
 
                 <p:commandButton value="Cancel"
                                  action="#{changeArrivalDeadlineDateDialog.cancel()}"/>
