@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "mode": "off",
+  "baselineSha": "9b9f311b2a3a2854bdac947593950d9edb6bca7d",
+  "campaignId": "48f8a98a-83f9-466b-aa2e-14edbb4449e9",
+  "issueNumbers": [
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "actualBodiesVerified": [
+    {
+      "number": 10,
+      "state": "OPEN",
+      "bodyVerified": true
+    },
+    {
+      "number": 11,
+      "state": "OPEN",
+      "bodyVerified": true
+    },
+    {
+      "number": 12,
+      "state": "OPEN",
+      "bodyVerified": true
+    },
+    {
+      "number": 13,
+      "state": "OPEN",
+      "bodyVerified": true
+    },
+    {
+      "number": 14,
+      "state": "OPEN",
+      "bodyVerified": true
+    }
+  ],
+  "expectedLessonCategory": "Repository-tested Cargo Tracker layering and Open Liberty constraints that reduce integration rework across later facade and UI tasks."
+}
