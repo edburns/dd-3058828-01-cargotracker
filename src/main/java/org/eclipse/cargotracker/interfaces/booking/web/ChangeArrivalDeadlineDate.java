@@ -72,7 +72,12 @@ public class ChangeArrivalDeadlineDate implements Serializable {
             throw new FacesException("An arrival deadline date is required");
         }
 
-        bookingServiceFacade.changeDeadline(trackingId, arrivalDeadlineDate);
+        try {
+            bookingServiceFacade.changeDeadline(trackingId, arrivalDeadlineDate);
+        } catch (RuntimeException e) {
+            throw new FacesException(
+                    "Unable to change arrival deadline for cargo " + trackingId, e);
+        }
         PrimeFaces.current().dialog().closeDynamic("DONE");
     }
 }
