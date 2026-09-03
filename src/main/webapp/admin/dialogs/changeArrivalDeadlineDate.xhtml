@@ -28,13 +28,15 @@
                                   value="#{changeArrivalDeadlineDate.arrivalDeadlineDate}"
                                   required="true"
                                   pattern="MM/dd/yyyy"/>
-                    <p:message for="deadline"/>
+                    <p:message id="deadlineMessage" for="deadline"/>
                 </h:panelGroup>
 
                 <p:commandButton value="Cancel"
                                  immediate="true"
                                  action="#{changeArrivalDeadlineDateDialog.cancel()}"/>
                 <p:commandButton value="Update"
+                                 process="@form"
+                                 update="deadlineMessage"
                                  action="#{changeArrivalDeadlineDate.changeArrivalDeadline()}"/>
             </h:panelGrid>
         </h:form>
