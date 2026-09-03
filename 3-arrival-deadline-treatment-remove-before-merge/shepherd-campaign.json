@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "5426f64c-a653-4ff1-ba39-00209a83cdb4",
+  "campaignIssueNumber": 3,
+  "campaignShortname": "arrival-deadline-treatment",
+  "repository": "edburns/dd-3058828-01-cargotracker",
+  "baseBranch": "experiment/shepherd-treatment",
+  "lessonPropagation": "campaign",
+  "campaignMetadataDirectory": "3-arrival-deadline-treatment-remove-before-merge",
+  "lessonsFile": "campaign-lessons.md",
+  "createdAt": "2026-09-03T00:54:16Z"
+}
