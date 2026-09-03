@@ -27,7 +27,8 @@
                               p:autofocus="true"/>
 
                 <p:commandButton value="Cancel"
-                                 action="#{changeArrivalDeadlineDateDialog.cancel()}"/>
+                                 action="#{changeArrivalDeadlineDateDialog.cancel()}"
+                                 process="@this"/>
                 <p:commandButton value="Update"
                                  action="#{changeArrivalDeadlineDate.changeArrivalDeadline()}"
                                  process="@form"
