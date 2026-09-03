@@ -16,14 +16,6 @@ The issue specification and repository instructions remain authoritative.
   - **Source:** stage-40 observation
   - **Confidence:** high
 
-  ## Candidate lessons for issue #9
-
-  - **Applies to:** Not Routed Cargo dashboard deadline editing
-    - **Lesson:** Mirror the adjacent Destination command link, including a `dialogReturn` listener and table-only update, when exposing a completed dynamic dialog.
-    - **Evidence:** `src/main/webapp/admin/tables/listNotRouted.xhtml` deadline column.
-    - **Source:** implementation
-    - **Confidence:** high
-
 ## Validated lessons from issue #6 (PR #16)
 
 - **Applies to:** Facade boundary methods that adapt a web-facing command to the application service
@@ -37,6 +29,14 @@ The issue specification and repository instructions remain authoritative.
   - **Evidence:** Copilot review finding on permissive no-op methods, corrective commit `f8456db`, and the finding-free follow-up review.
   - **Source:** stage-40 observation
   - **Confidence:** high
+
+## Candidate lessons for issue #9
+
+- **Applies to:** Not Routed Cargo dashboard deadline editing
+   - **Lesson:** Mirror the adjacent Destination command link, including a `dialogReturn` listener and table-only update, when exposing a completed dynamic dialog.
+   - **Evidence:** `src/main/webapp/admin/tables/listNotRouted.xhtml` deadline column.
+   - **Source:** implementation
+   - **Confidence:** high
 - **Applies to:** Historical JDK 17 / Open Liberty validation for compiled Java EE tests
   - **Lesson:** Use `./mvnw clean package -Popenliberty` as the executable compile gate, and rely on the direct HTTP/browser acceptance flow because the historical Arquillian integration suite remains container-bound and the project still defaults `skipTests=true`.
   - **Evidence:** POM `skipTests=true`, successful Open Liberty package builds, and the issue's acceptance flow after the application-layer test is in place.
