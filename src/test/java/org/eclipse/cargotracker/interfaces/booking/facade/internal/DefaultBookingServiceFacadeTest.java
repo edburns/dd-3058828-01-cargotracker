@@ -39,20 +39,22 @@ public class DefaultBookingServiceFacadeTest {
         @Override
         public TrackingId bookNewCargo(UnLocode origin, UnLocode destination,
                                       Date arrivalDeadline) {
-            return null;
+            throw new AssertionError("Unexpected bookNewCargo call");
         }
 
         @Override
         public List<Itinerary> requestPossibleRoutesForCargo(TrackingId trackingId) {
-            return null;
+            throw new AssertionError("Unexpected requestPossibleRoutesForCargo call");
         }
 
         @Override
         public void assignCargoToRoute(Itinerary itinerary, TrackingId trackingId) {
+            throw new AssertionError("Unexpected assignCargoToRoute call");
         }
 
         @Override
         public void changeDestination(TrackingId trackingId, UnLocode unLocode) {
+            throw new AssertionError("Unexpected changeDestination call");
         }
 
         @Override
