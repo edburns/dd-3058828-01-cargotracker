@@ -47,3 +47,9 @@ The issue specification and repository instructions remain authoritative.
   - **Evidence:** `ChangeArrivalDeadlineDateTest`, corrective commit `26862c7`, and the finding-free follow-up Copilot review.
   - **Source:** both
   - **Confidence:** high
+
+## Candidate lessons for issue #8
+
+- **Applies to:** PrimeFaces dynamic dialogs running on the prepared MyFaces/Open Liberty baseline
+  - **Lesson:** Place `<f:metadata>` directly beneath the root `<html>` element, ahead of `<h:head>` and `<h:body>`, so `f:viewParam` and `f:viewAction` execute without component-parent errors.
+  - **Evidence:** Direct HTTP request to `changeArrivalDeadlineDate.xhtml?trackingId=DEF789` returned 200 and rendered the loaded cargo context and deadline.
