@@ -23,6 +23,7 @@ The issue specification and repository instructions remain authoritative.
   - **Evidence:** `DefaultBookingServiceFacade.changeDeadline(...)`, the focused facade test, and the finding-free Copilot review of `f8456db`.
   - **Source:** CCA observation
   - **Confidence:** high
+
 - **Applies to:** Hand-written application-service test doubles used to verify narrow facade delegation
   - **Lesson:** Make every operation outside the expected delegation fail fast so the test detects accidental extra service calls rather than silently accepting them.
   - **Evidence:** Copilot review finding on permissive no-op methods, corrective commit `f8456db`, and the finding-free follow-up review.
@@ -33,3 +34,16 @@ The issue specification and repository instructions remain authoritative.
   - **Evidence:** POM `skipTests=true`, successful Open Liberty package builds, and the issue's acceptance flow after the application-layer test is in place.
   - **Source:** CCA observation
   - **Confidence:** high
+
+## Candidate lessons for issue #7
+
+- **Applies to:** JSF deadline editor backing models
+   - **Lesson:** Parse the facade DTO's date-only value with a fresh, non-lenient `SimpleDateFormat`; surface malformed values as an application failure.
+   - **Evidence:** `ChangeArrivalDeadlineDate.load()` and its container-free focused test.
+   - **Source:** implementation
+   - **Confidence:** high
+- **Applies to:** Container-free web bean tests
+   - **Lesson:** Inject a hand-written facade fake reflectively when testing a CDI bean outside a container; make unexpected facade operations fail fast.
+   - **Evidence:** `ChangeArrivalDeadlineDateTest`.
+   - **Source:** implementation
+   - **Confidence:** high
