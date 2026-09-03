@@ -3,8 +3,6 @@
 This file contains validated, reusable lessons for subsequent issues in this campaign.
 The issue specification and repository instructions remain authoritative.
 
-## Validated lessons
-
 ## Validated lessons from issue #5 (PR #15)
 
 - **Applies to:** Application-layer changes to a cargo's route specification
