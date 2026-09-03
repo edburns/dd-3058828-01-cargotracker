@@ -98,6 +98,6 @@ public class DefaultBookingService implements BookingService {
         cargoRepository.store(cargo);
 
         logger.log(Level.INFO, "Changed deadline for cargo {0} to {1}",
-                new Object[]{trackingId, deadline});
+                new Object[]{trackingId, routeSpecification.getArrivalDeadline()});
     }
 }
