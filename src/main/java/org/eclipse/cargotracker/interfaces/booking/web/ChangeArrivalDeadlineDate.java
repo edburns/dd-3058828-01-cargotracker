@@ -47,6 +47,7 @@ public class ChangeArrivalDeadlineDate implements Serializable {
     }
 
     public void load() {
+        cargo = null;
         arrivalDeadlineDate = null;
         try {
             cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
