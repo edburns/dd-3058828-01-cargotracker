@@ -9,8 +9,8 @@ The issue specification and repository instructions remain authoritative.
 
 - **Applies to:** Application-layer changes to a cargo's route specification
   - **Lesson:** Replace the whole `RouteSpecification`, call `cargo.specifyNewRoute(...)`, and persist through `cargoRepository.store(...)` so the aggregate recalculates delivery state.
-  - **Evidence:** `DefaultBookingService.changeDeadline(...)`, `BookingServiceTest.testChangeDeadline()`, passing PR CI, and Copilot's approval recommendation on the final implementation.
-  - **Source:** CCA observation and stage-40 observation
+  - **Evidence:** `DefaultBookingService.changeDeadline(...)` and the preserved-state assertions in `BookingServiceTest.testChangeDeadline()`.
+  - **Source:** both
   - **Confidence:** high
 - **Applies to:** Logging mutable values accepted by application services
   - **Lesson:** Log the defensively copied value held by the new domain value object rather than retaining a caller-owned mutable argument for deferred formatting.
