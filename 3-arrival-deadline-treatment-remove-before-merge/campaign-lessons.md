@@ -30,17 +30,12 @@ The issue specification and repository instructions remain authoritative.
   - **Source:** stage-40 observation
   - **Confidence:** high
 
-## Candidate lessons for issue #9
+## Validated lessons from issue #9 (PR #19)
 
-- **Applies to:** Not Routed Cargo dashboard deadline editing
-   - **Lesson:** Mirror the adjacent Destination command link, including a `dialogReturn` listener and table-only update, when exposing a completed dynamic dialog.
-   - **Evidence:** `src/main/webapp/admin/tables/listNotRouted.xhtml` deadline column.
-   - **Source:** implementation
-   - **Confidence:** high
-- **Applies to:** Historical JDK 17 / Open Liberty validation for compiled Java EE tests
-  - **Lesson:** Use `./mvnw clean package -Popenliberty` as the executable compile gate, and rely on the direct HTTP/browser acceptance flow because the historical Arquillian integration suite remains container-bound and the project still defaults `skipTests=true`.
-  - **Evidence:** POM `skipTests=true`, successful Open Liberty package builds, and the issue's acceptance flow after the application-layer test is in place.
-  - **Source:** CCA observation
+- **Applies to:** PrimeFaces table actions that expose an existing dynamic dialog
+  - **Lesson:** Mirror an adjacent command-link integration: pass the row identifier to the dialog, handle `dialogReturn`, and update only the containing table so unrelated page state is preserved.
+  - **Evidence:** `src/main/webapp/admin/tables/listNotRouted.xhtml` and the finding-free Copilot review of `e873bb9`.
+  - **Source:** both
   - **Confidence:** high
 
 ## Validated lessons from issue #7 (PR #17)
