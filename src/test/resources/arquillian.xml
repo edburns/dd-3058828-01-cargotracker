@@ -7,11 +7,21 @@
     <engine>
         <property name="deploymentExportPath">target/</property>
     </engine>
-    <container qualifier="payara" default="true">
+    <container qualifier="payara">
         <configuration>
             <!-- <property name="outputToConsole">true</property> -->
             <property name="adminUser">admin</property>
             <property name="adminPassword"></property>
+        </configuration>
+    </container>
+    <container qualifier="openliberty" default="true">
+        <configuration>
+            <property name="allowConnectingToRunningServer">true</property>
+            <property name="wlpHome">target/liberty/wlp</property>
+            <property name="serverName">defaultServer</property>
+            <property name="httpPort">8080</property>
+            <property name="deployType">xml</property>
+            <property name="sharedLib">DerbyLib</property>
         </configuration>
     </container>
 </arquillian>
