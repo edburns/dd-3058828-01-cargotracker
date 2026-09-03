@@ -38,12 +38,12 @@ The issue specification and repository instructions remain authoritative.
 ## Candidate lessons for issue #7
 
 - **Applies to:** JSF deadline editor backing models
-   - **Lesson:** Parse the facade DTO's date-only value with a fresh, non-lenient `SimpleDateFormat`; surface malformed values as an application failure.
-   - **Evidence:** `ChangeArrivalDeadlineDate.load()` and its container-free focused test.
-   - **Source:** implementation
-   - **Confidence:** high
+  - **Lesson:** Parse the facade DTO's date-only value with a fresh, non-lenient `SimpleDateFormat`; surface malformed values as an application failure.
+  - **Evidence:** `ChangeArrivalDeadlineDate.load()` and its container-free focused test.
+  - **Source:** implementation
+  - **Confidence:** high
 - **Applies to:** Container-free web bean tests
-   - **Lesson:** Inject a hand-written facade fake reflectively when testing a CDI bean outside a container; make unexpected facade operations fail fast.
-   - **Evidence:** `ChangeArrivalDeadlineDateTest`.
-   - **Source:** implementation
-   - **Confidence:** high
+  - **Lesson:** Inject a hand-written facade fake reflectively when testing a CDI bean outside a container; make unexpected facade operations fail fast.
+  - **Evidence:** `ChangeArrivalDeadlineDateTest`.
+  - **Source:** implementation
+  - **Confidence:** high

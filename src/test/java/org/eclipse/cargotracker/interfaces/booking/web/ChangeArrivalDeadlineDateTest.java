@@ -53,6 +53,30 @@ public class ChangeArrivalDeadlineDateTest {
     }
 
     @Test
+    public void loadWrapsMalformedDtoDate() throws Exception {
+        ChangeArrivalDeadlineDate editor = newEditor(new FakeFacade() {
+            @Override
+            public CargoRoute loadCargoForRouting(String trackingId) {
+                return new CargoRoute("ABC123", "A", "B", date("03/15/2025"), false, false, "A", "N") {
+                    @Override
+                    public String getArrivalDeadlineDate() {
+                        throw new StringIndexOutOfBoundsException("Malformed date");
+                    }
+                };
+            }
+        });
+        editor.setTrackingId("ABC123");
+
+        try {
+            editor.load();
+            fail("Expected malformed DTO failure");
+        } catch (IllegalStateException e) {
+            assertTrue(e.getMessage().contains("Invalid cargo arrival deadline date"));
+            assertTrue(e.getCause() instanceof StringIndexOutOfBoundsException);
+        }
+    }
+
+    @Test
     public void changeRejectsNullWithoutFacadeMutation() throws Exception {
         FakeFacade facade = new FakeFacade();
         ChangeArrivalDeadlineDate editor = newEditor(facade);
@@ -99,7 +123,9 @@ public class ChangeArrivalDeadlineDateTest {
 
     private static Date date(String text) {
         try {
-            return new SimpleDateFormat("MM/dd/yyyy").parse(text);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            dateFormat.setLenient(false);
+            return dateFormat.parse(text);
         } catch (ParseException e) {
             throw new AssertionError(e);
         }

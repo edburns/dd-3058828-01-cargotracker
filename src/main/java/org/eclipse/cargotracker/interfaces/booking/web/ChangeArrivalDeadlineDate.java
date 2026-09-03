@@ -45,11 +45,20 @@ public class ChangeArrivalDeadlineDate implements Serializable {
 
     public void load() {
         cargo = bookingServiceFacade.loadCargoForRouting(trackingId);
-        if (cargo == null || cargo.getArrivalDeadlineDate() == null) {
+        if (cargo == null) {
             throw new IllegalStateException("Cargo arrival deadline is unavailable for " + trackingId);
         }
 
-        String dateText = cargo.getArrivalDeadlineDate();
+        final String dateText;
+        try {
+            dateText = cargo.getArrivalDeadlineDate();
+        } catch (RuntimeException e) {
+            throw new IllegalStateException("Invalid cargo arrival deadline date for " + trackingId, e);
+        }
+        if (dateText == null) {
+            throw new IllegalStateException("Cargo arrival deadline is unavailable for " + trackingId);
+        }
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         dateFormat.setLenient(false);
         try {
