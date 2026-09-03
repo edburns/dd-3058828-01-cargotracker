@@ -16,15 +16,20 @@ The issue specification and repository instructions remain authoritative.
   - **Source:** stage-40 observation
   - **Confidence:** high
 
-## Candidate lessons for issue #6
+## Validated lessons from issue #6 (PR #16)
 
 - **Applies to:** Facade boundary methods that adapt a web-facing command to the application service
   - **Lesson:** Keep the facade thin: convert only the tracking ID and pass the original `Date` to `BookingService.changeDeadline(...)`; do not load cargo, store through a repository, or parse a formatted date in the facade.
-  - **Evidence:** `DefaultBookingServiceFacade.changeDeadline(...)` and `DefaultBookingServiceFacadeTest` verifying one conversion and one delegation.
-  - **Source:** issue 4.2
+  - **Evidence:** `DefaultBookingServiceFacade.changeDeadline(...)`, the focused facade test, and the finding-free Copilot review of `f8456db`.
+  - **Source:** CCA observation
+  - **Confidence:** high
+- **Applies to:** Hand-written application-service test doubles used to verify narrow facade delegation
+  - **Lesson:** Make every operation outside the expected delegation fail fast so the test detects accidental extra service calls rather than silently accepting them.
+  - **Evidence:** Copilot review finding on permissive no-op methods, corrective commit `f8456db`, and the finding-free follow-up review.
+  - **Source:** stage-40 observation
   - **Confidence:** high
 - **Applies to:** Historical JDK 17 / Open Liberty validation for compiled Java EE tests
   - **Lesson:** Use `./mvnw clean package -Popenliberty` as the executable compile gate, and rely on the direct HTTP/browser acceptance flow because the historical Arquillian integration suite remains container-bound and the project still defaults `skipTests=true`.
   - **Evidence:** POM `skipTests=true`, successful Open Liberty package builds, and the issue's acceptance flow after the application-layer test is in place.
-  - **Source:** issue 4.2
+  - **Source:** CCA observation
   - **Confidence:** high
