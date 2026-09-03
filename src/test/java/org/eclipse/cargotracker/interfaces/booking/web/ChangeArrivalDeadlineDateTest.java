@@ -7,6 +7,8 @@ import org.eclipse.cargotracker.interfaces.booking.facade.dto.RouteCandidate;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -24,15 +26,15 @@ public class ChangeArrivalDeadlineDateTest {
         editor.load();
 
         assertEquals("ABC123", ((FakeFacade) facade(editor)).loadedTrackingId);
-        assertEquals(new Date(125, 2, 15), editor.getArrivalDeadlineDate());
+        assertEquals(date("03/15/2025"), editor.getArrivalDeadlineDate());
     }
 
     @Test
-    public void loadRejectsMalformedDtoDate() throws Exception {
+    public void loadRejectsInvalidDtoDate() throws Exception {
         ChangeArrivalDeadlineDate editor = newEditor(new FakeFacade() {
             @Override
             public CargoRoute loadCargoForRouting(String trackingId) {
-                return new CargoRoute("ABC123", "A", "B", new Date(), false, false, "A", "N") {
+                return new CargoRoute("ABC123", "A", "B", date("03/15/2025"), false, false, "A", "N") {
                     @Override
                     public String getArrivalDeadlineDate() {
                         return "02/30/2025";
@@ -95,6 +97,14 @@ public class ChangeArrivalDeadlineDateTest {
         return editor;
     }
 
+    private static Date date(String text) {
+        try {
+            return new SimpleDateFormat("MM/dd/yyyy").parse(text);
+        } catch (ParseException e) {
+            throw new AssertionError(e);
+        }
+    }
+
     private static BookingServiceFacade facade(ChangeArrivalDeadlineDate editor) throws Exception {
         Field field = ChangeArrivalDeadlineDate.class.getDeclaredField("bookingServiceFacade");
         field.setAccessible(true);
@@ -110,7 +120,7 @@ public class ChangeArrivalDeadlineDateTest {
         @Override
         public CargoRoute loadCargoForRouting(String trackingId) {
             loadedTrackingId = trackingId;
-            return new CargoRoute("ABC123", "A", "B", new Date(125, 2, 15), false, false, "A", "N");
+            return new CargoRoute("ABC123", "A", "B", date("03/15/2025"), false, false, "A", "N");
         }
 
         @Override
