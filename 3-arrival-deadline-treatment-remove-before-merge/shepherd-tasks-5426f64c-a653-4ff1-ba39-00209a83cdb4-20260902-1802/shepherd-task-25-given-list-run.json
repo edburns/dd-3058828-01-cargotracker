@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "campaignId": "5426f64c-a653-4ff1-ba39-00209a83cdb4",
+  "campaignMetadataDirectory": "3-arrival-deadline-treatment-remove-before-merge",
+  "repository": "edburns/dd-3058828-01-cargotracker",
+  "baseBranch": "experiment/shepherd-treatment",
+  "lessonPropagation": "campaign",
+  "taskIssues": [
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "startedAt": "2026-09-03T01:02:53Z",
+  "completedAt": "2026-09-03T12:48:42Z",
+  "exitCode": 0,
+  "status": "succeeded"
+}
