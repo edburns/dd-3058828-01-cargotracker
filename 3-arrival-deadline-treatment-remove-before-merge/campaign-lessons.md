@@ -48,8 +48,15 @@ The issue specification and repository instructions remain authoritative.
   - **Source:** both
   - **Confidence:** high
 
-## Candidate lessons for issue #8
+## Validated lessons from issue #8 (PR #18)
 
 - **Applies to:** PrimeFaces dynamic dialogs running on the prepared MyFaces/Open Liberty baseline
   - **Lesson:** Place `<f:metadata>` directly beneath the root `<html>` element, ahead of `<h:head>` and `<h:body>`, so `f:viewParam` and `f:viewAction` execute without component-parent errors.
   - **Evidence:** Direct HTTP request to `changeArrivalDeadlineDate.xhtml?trackingId=DEF789` returned 200 and rendered the loaded cargo context and deadline.
+  - **Source:** CCA observation
+  - **Confidence:** high
+- **Applies to:** Cancel actions in JSF forms containing required inputs
+  - **Lesson:** Restrict a PrimeFaces Cancel command to `process="@this"` so required-field validation cannot prevent the close action from running.
+  - **Evidence:** Copilot review finding on the required deadline picker, corrective commit `4d70a02`, and the follow-up review confirming the finding was resolved.
+  - **Source:** stage-40 observation
+  - **Confidence:** high
